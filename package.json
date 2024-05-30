@@ -1,0 +1,24 @@
+{
+  "name": "mern_redux_ecommerce",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "MERN Ecommerce App",
+  "main": "app.js",
+  "scripts": {
+    "start": "node backend/app.js",
+    "dev": "cross-env NODE_ENV=DEVELOPMENT nodemon backend/app.js",
+    "prod": "cross-env NODE_ENV=PRODUCTION nodemon backend/app.js",
+    "seeder": "node backend/seeder/seeder.js"
+  },
+  "author": "nfrank",
+  "license": "ISC",
+  "dependencies": {
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
