@@ -1,22 +1,34 @@
 import catchAsyncErrors from '../middlewares/catchAsyncErrors.js';
 import Product from '../models/products.js'  
+import APIFilters from '../utils/apiFilters.js';
 import ErrorHandler from '../utils/errorHandler.js';
 
 
+// Search Product by Keyword
+export const getProductKeyword = catchAsyncErrors(async (req, res) => {
+
+    const apiFilters = new APIFilters(Product, req.query).search();
+
+    let products = await apiFilters.query;
+    let filteredProductsCount = products.length;
+
+    res.status(200).json({
+        filteredProductsCount,
+        products
+    });
+});
+
+
+// create product API
 export const newProduct = catchAsyncErrors (async (req, res) => {
+    
     const {name, price, description, category, seller, stock} = req.body;
-    console.log(name, price, description, category, seller, stock)
+    
     if(!name || !price || !description || !category || !seller || !stock){
         res.status(400).json({
             message: 'fill product name, price, description, category, seller, stock'
         });
     }
-    // const product0 = await Product.find(req.body);
-    // if(product0){
-    //     res.status(404).json({
-    //         message: 'There is another product in the system with the same caracteristics'
-    //     });
-    // }
 
     const product = await Product.create(req.body);
 
@@ -28,7 +40,9 @@ export const newProduct = catchAsyncErrors (async (req, res) => {
 });
 
 
+// search all the products
 export const getProducts = catchAsyncErrors(async (req, res) => {
+
     const products = await Product.find();
 
     if(!products) {
@@ -42,6 +56,7 @@ export const getProducts = catchAsyncErrors(async (req, res) => {
         status: 200
     });
 });
+
 
 // Get single product details => /api/v1/products/:id
 export const getProductDetails = catchAsyncErrors(async (req, res, next) => {
