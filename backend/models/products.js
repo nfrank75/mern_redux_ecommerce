@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+
 const productSchema =  new mongoose.Schema({
     name: {
         type: String,
@@ -58,7 +59,6 @@ const productSchema =  new mongoose.Schema({
     },
     stock: {
         type: Number,
-        default: 0,
         require: [true, "Please enter product stock"],
 
     },

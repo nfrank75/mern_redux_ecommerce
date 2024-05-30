@@ -3,10 +3,22 @@ import Product from '../models/products.js'
 import ErrorHandler from '../utils/errorHandler.js';
 
 
-export const newProduct = catchAsyncErrors (async (req, res, next) => {
-    const product = await Product.create(req.body);
+export const newProduct = catchAsyncErrors (async (req, res) => {
+    const {name, price, description, category, seller, stock} = req.body;
+    console.log(name, price, description, category, seller, stock)
+    if(!name || !price || !description || !category || !seller || !stock){
+        res.status(400).json({
+            message: 'fill product name, price, description, category, seller, stock'
+        });
+    }
+    // const product0 = await Product.find(req.body);
+    // if(product0){
+    //     res.status(404).json({
+    //         message: 'There is another product in the system with the same caracteristics'
+    //     });
+    // }
 
-    
+    const product = await Product.create(req.body);
 
     res.status(201).json({
         new_product: product,

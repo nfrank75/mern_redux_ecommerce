@@ -15,8 +15,8 @@ export default (err, req, res, next) => {
 
     // handle validation error
     if (err.name === "ValidatorError") {
-        const message = `Resource not found. Invalid: ${err?.path}`;
-        error = new ErrorHandler(message, 404);
+        const message = Object.values(err.errors).map((value) => value.message);
+        error = new ErrorHandler(message, 400);
     }
 
     if (process.env.NODE_ENV ==='DEVELOPMENT') {
