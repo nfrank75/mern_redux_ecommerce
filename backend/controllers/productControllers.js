@@ -7,7 +7,7 @@ import ErrorHandler from '../utils/errorHandler.js';
 // Search Product by Keyword
 export const getProductKeyword = catchAsyncErrors(async (req, res) => {
 
-    const apiFilters = new APIFilters(Product, req.query).search();
+    const apiFilters = new APIFilters(Product, req.query).search().filters();
 
     let products = await apiFilters.query;
     let filteredProductsCount = products.length;
