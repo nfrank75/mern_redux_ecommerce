@@ -25,9 +25,13 @@ connectDatabase();
 app.use(express.json());
 
 
-// import all the routes of Product
+// import all the routes 
 import productRoutes from "./routes/products.js";
+import  authRoutes  from './routes/auth.js';
+
+
 app.use('/api/v1/', productRoutes);
+app.use('/api/v1/', authRoutes);
 
 
 // using error middleware
