@@ -9,11 +9,19 @@ export const getProductKeyword = catchAsyncErrors(async (req, res) => {
 
     const apiFilters = new APIFilters(Product, req.query).search().filters();
 
-    let products = await apiFilters.query;
+    let products = await apiFilters.query; // filter product
     let filteredProductsCount = products.length;
 
+    //pagination page 
+    const resPerPage = 4;
+    apiFilters.pagination(resPerPage);
+    products = await apiFilters.query.clone()
+    let pageProduct = products.length;
+
     res.status(200).json({
+        resPerPage,
         filteredProductsCount,
+        pageProduct,
         products
     });
 });
