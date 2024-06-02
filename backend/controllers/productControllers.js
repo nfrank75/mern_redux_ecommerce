@@ -57,6 +57,7 @@ export const getProducts = catchAsyncErrors(async (req, res) => {
         return next(new ErrorHandler('products not found', 422));
     }
 
+
     res.status(200).json({
         list_of_product: products,
         message: 'Get all the product',
