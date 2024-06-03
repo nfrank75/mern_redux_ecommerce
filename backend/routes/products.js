@@ -6,16 +6,18 @@ import { deleteProduct } from '../controllers/productControllers.js';
 import { getProductKeyword } from '../controllers/productControllers.js';
 import { getProducts } from '../controllers/productControllers.js';
 import { isAuthenticatedUser } from '../middlewares/auth.js';
+import { authorizeRoles } from '../controllers/authControllers.js';
 
 
 
 const router = express.Router();
 
 
-router.route('/admin/products').post(isAuthenticatedUser, newProduct);
+router.route('/admin/products').post(isAuthenticatedUser,  authorizeRoles("admin"), newProduct);
+router.route('/admin/product/:id').put(isAuthenticatedUser,  authorizeRoles("admin"), updateProduct);
+router.route('/admin/product/:id').delete(isAuthenticatedUser,  authorizeRoles("admin"), deleteProduct);
+
 router.route('/product/:id').get(isAuthenticatedUser, getProductDetails);
-router.route('/product/:id').put(isAuthenticatedUser, updateProduct);
-router.route('/product/:id').delete(isAuthenticatedUser, deleteProduct);
 router.route('/products').get(isAuthenticatedUser, getProductKeyword);
 router.route('/products').get(isAuthenticatedUser, getProducts);
 

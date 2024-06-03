@@ -29,6 +29,7 @@ export const getProductKeyword = catchAsyncErrors(async (req, res) => {
 
 // create product API
 export const newProduct = catchAsyncErrors (async (req, res) => {
+    req.body.user = req.user._id;
     
     const {name, price, description, category, seller, stock} = req.body;
     
