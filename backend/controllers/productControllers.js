@@ -4,31 +4,9 @@ import APIFilters from '../utils/apiFilters.js';
 import ErrorHandler from '../utils/errorHandler.js';
 
 
-// Search Product by Keyword
-export const getProductKeyword = catchAsyncErrors(async (req, res) => {
 
-    const apiFilters = new APIFilters(Product, req.query).search().filters();
-
-    let products = await apiFilters.query; // filter product
-    let filteredProductsCount = products.length;
-
-    //pagination page 
-    const resPerPage = 4;
-    apiFilters.pagination(resPerPage);
-    products = await apiFilters.query.clone()
-    let pageProduct = products.length;
-
-    res.status(200).json({
-        resPerPage,
-        filteredProductsCount,
-        pageProduct,
-        products
-    });
-});
-
-
-// create product API
-export const newProduct = catchAsyncErrors (async (req, res) => {
+// create new product endpoint => /api/v1/products/
+export const createProduct = catchAsyncErrors (async (req, res) => {
     req.body.user = req.user._id;
     
     const {name, price, description, category, seller, stock} = req.body;
@@ -49,6 +27,31 @@ export const newProduct = catchAsyncErrors (async (req, res) => {
 });
 
 
+
+// get all the products =>  /api/v1/products
+export const getProducts0 = catchAsyncErrors(async (req, res) => {
+    
+    const resPerPage = 4;
+    const apiFilters = new APIFilters(Product, req.query).search().filters();
+
+    let products = await apiFilters.query; // filter product
+    let filteredProductsCount = products.length;
+
+    apiFilters.pagination(resPerPage);
+    products = await apiFilters.query.clone()
+    let pageProduct = products.length;
+
+    res.status(200).json({
+        resPerPage,
+        filteredProductsCount,
+        pageProduct,
+        products
+    });
+});
+
+
+
+
 // search all the products
 export const getProducts = catchAsyncErrors(async (req, res) => {
 
@@ -66,6 +69,9 @@ export const getProducts = catchAsyncErrors(async (req, res) => {
         status: 200
     });
 });
+
+
+
 
 
 // Get single product details => /api/v1/products/:id
