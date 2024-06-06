@@ -5,6 +5,7 @@ import sendToken from '../utils/sendToken.js';
 import sendEmail from '../utils/sendEmail.js';
 import {getResetPasswordTemplate} from '../utils/emailTemplates.js';
 import crypto from 'crypto';
+import { log } from 'console';
 
 // Register user => /api/v1/register  
 export const registerUser = catchAsyncErrors(async (req, res, next) => {
@@ -26,10 +27,9 @@ export const registerUser = catchAsyncErrors(async (req, res, next) => {
         });
 
     }
-    catch  (error) {
+    catch (error) {
         res.status(400).json({
-            success: false,
-            error: error.message
+            error
         });
     }
     
@@ -104,7 +104,6 @@ export const authorizeRoles = (...roles) => {
         next();
     }
 };
-
 
 // Forgot password      =>  /api/v1/password/forgot
 export const forgotPassword = catchAsyncErrors(async (req, res, next) => {
@@ -182,3 +181,17 @@ export const resetPassword = catchAsyncErrors(async (req, res, next) => {
   
     sendToken(user, 200, res);
   });
+
+
+export const getUserProfile = catchAsyncErrors(async (req, res, next) => {
+    const user = await User.findById(req?.user?._id);
+
+    // if(!user){
+    //     return next(new ErrorHandler("User does not exist", 400)); 
+    // }
+    res.status(200).json({
+        user
+    });
+
+
+})
