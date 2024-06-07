@@ -182,16 +182,48 @@ export const resetPassword = catchAsyncErrors(async (req, res, next) => {
     sendToken(user, 200, res);
   });
 
-
+// Get Current User profile => /api/v1/me
 export const getUserProfile = catchAsyncErrors(async (req, res, next) => {
     const user = await User.findById(req?.user?._id);
 
-    // if(!user){
-    //     return next(new ErrorHandler("User does not exist", 400)); 
-    // }
+    
     res.status(200).json({
         user
     });
+})
 
+
+// Update password => /api/v1/update/password
+export const updatePassword = catchAsyncErrors(async (req, res, next) => {
+    const user = await User.findById(req?.user?._id).select("+password");
+
+    const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
+
+    if(!isPasswordMatched){
+        return next(new ErrorHandler('Old password is incorrect', 400))
+    }
+
+    user.password = req.body.password;
+    user.save();
+
+    res.status(200).json({
+        success: true,
+    });
+
+})
+
+
+// Update User profile => /api/v1/update/user/profile
+export const updateUserProfile = catchAsyncErrors(async (req, res, next) => {
+
+    const newUserData = {
+        name: req.body.name,
+        email: req.body.email,
+      };
+    const user = await User.findByIdAndUpdate(req?.user?._id, newUserData, { new: true });
+
+    res.status(200).json({
+        user,
+    });
 
 })
