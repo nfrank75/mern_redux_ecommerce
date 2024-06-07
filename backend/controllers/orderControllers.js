@@ -35,3 +35,45 @@ export const newOrder = catchAsyncErrors(async (req, res, next) => {
     });
 });
 
+export const getOrderDetails = catchAsyncErrors(async (req, res, next) => {
+
+    const order = await Order.findById(req.params.id);
+
+    if(!order){
+        return next(new ErrorHandler(`Order not found with: ${req.params.id}`));
+    };
+
+    res.status(200).json({
+        'length_order' : order.length,
+        order
+    })
+
+
+});
+
+export const allOrders = catchAsyncErrors(async (req, res, next) => {
+
+    const order = await Order.find();
+
+
+    res.status(200).json({
+        'length_order' : order.length,
+        order
+    })
+
+
+});
+
+
+export const updateOrder = catchAsyncErrors(async (req, res, next) => {
+
+    const order = await Order.find();
+
+
+    res.status(200).json({
+        'length_order' : order.length,
+        order
+    })
+
+
+});
