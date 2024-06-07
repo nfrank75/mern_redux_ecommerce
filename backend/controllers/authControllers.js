@@ -227,3 +227,73 @@ export const updateUserProfile = catchAsyncErrors(async (req, res, next) => {
     });
 
 })
+
+// Get All User ADMIN => /api/v1/admin/users
+export const getAllUsers = catchAsyncErrors(async (req, res, next) => {
+
+    const users = await User.find();
+
+    if(!users){
+        return next(new ErrorHandler(`Users doest not exist`));
+    }
+
+    res.status(200).json({
+        'length_users': users.length,
+        users,
+        
+    });
+
+})
+
+
+// Get User Details ADMIN => /api/v1/admin/users/:id
+export const getUserDetails = catchAsyncErrors(async (req, res, next) => {
+
+    const user = await User.findById(req.params.id);
+
+    if(!user){
+        return next(new ErrorHandler(`User not found with id: ${req.params.id}`));
+    }
+
+    res.status(200).json({
+        user,
+    });
+})
+
+// Update User Details - ADMIN => /api/v1/admin/users/:id
+export const updateUser = catchAsyncErrors(async (req, res, next) => {
+
+    const newUserData = {
+        name: req.body.name,
+        email: req.body.email,
+        role: req.body.role,
+    };
+
+    const user = await User.findByIdAndUpdate(req.params.id, newUserData, {
+        new: true,
+    });
+
+    res.status(200).json({
+        user,
+    });
+
+})
+
+// Delete User - ADMIN => /api/v1/admin/users/:id
+export const deleteUser = catchAsyncErrors(async (req, res, next) => {
+
+    const user = await User.findById(req.params.id);
+
+    if(!user){
+        return next(new ErrorHandler(`User not found with id: ${req.params.id}`));
+    }
+
+    // TODO - Remove user avatar from cloud
+
+    await user.deleteOne();
+
+    res.status(200).json({
+        message: `user deleted successfully : ${req.params.id}`,
+    });
+})
+
