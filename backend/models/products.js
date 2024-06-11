@@ -73,7 +73,7 @@ const productSchema = new mongoose.Schema(
           ref: "User",
           required: true,
         },
-        rating: {
+        numOffrating: {
           type: Number,
           required: true,
         },
