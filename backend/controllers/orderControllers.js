@@ -1,7 +1,7 @@
 import catchAsyncErrors from '../middlewares/catchAsyncErrors.js';
 import ErrorHandler from '../utils/errorHandler.js';
-import { response } from 'express';
 import Order from '../models/orders.js';
+import Product from '../models/products.js';
 
 
 // Create new Order  =>  /api/v1/orders/new
@@ -102,8 +102,23 @@ export const updateOrder = catchAsyncErrors(async (req, res, next) => {
         return next(new ErrorHandler('you have already delivered this order', 404))
     }
 
+    // Update products stock
+    order?.orderItems?.forEach(async (item) => {
+        const product = await Product.findById(item?.product?.toString());
+        if(!product){
+            return next(new ErrorHandler('No product found with this ID', 404));
+        }
+        product.stock = product.stock - item.quantity;
+        await product.save({ validateBeforeSave: false });
+    });
+
+    order.orderStatus = req.body.status;
+    order.deliveredAt = Date.now();
+
+    order.save()
+
     res.status(200).json({
-        order,
+        success: true,
     });
 });
 
@@ -122,7 +137,6 @@ export const deleteOrder = catchAsyncErrors(async (req, res, next) => {
 
     res.status(200).json({
         success: true,
-        message: `Order with id: ${req.params.id} deleted successfully`
     })
 
 

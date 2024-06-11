@@ -91,7 +91,7 @@ export const getProductDetails = catchAsyncErrors(async (req, res, next) => {
 
 
 // Update product details => /api/v1/products/:id
-export const updateProduct = catchAsyncErrors(async (req, res) => {
+export const updateProduct = catchAsyncErrors(async (req, res, next) => {
     let product = await Product.findById(req?.params?.id);
 
     if(!product) {
@@ -108,7 +108,7 @@ export const updateProduct = catchAsyncErrors(async (req, res) => {
 
 
 // delete product => /api/v1/products/:id
-export const deleteProduct = catchAsyncErrors(async (req, res) => {
+export const deleteProduct = catchAsyncErrors(async (req, res, next) => {
     let product = await Product.findById(req?.params?.id);
 
     if(!product) {

@@ -10,8 +10,8 @@ import { authorizeRoles } from '../controllers/authControllers.js';
 const router = express.Router();
 
 
-router.route('/admin/products').post(isAuthenticatedUser,  authorizeRoles("user"), createProduct);
-router.route('/admin/products/:id').put(isAuthenticatedUser,  authorizeRoles("user"), updateProduct);
+router.route('/admin/products').post(isAuthenticatedUser,  authorizeRoles("admin"), createProduct);
+router.route('/admin/products/:id').put(isAuthenticatedUser,  authorizeRoles("admin"), updateProduct);
 router.route('/admin/products/:id').delete(isAuthenticatedUser,  authorizeRoles("admin"), deleteProduct);
 
 
