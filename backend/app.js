@@ -33,6 +33,8 @@ import productRoutes from "./routes/products.js";
 import  authRoutes  from './routes/auth.js';
 import orderRoutes from './routes/orders.js';
 import reviewRoutes from './routes/review.js'
+import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
 
 app.use('/api/v1/', productRoutes);
 app.use('/api/v1/', authRoutes);
@@ -42,6 +44,27 @@ app.use('/api/v1', reviewRoutes);
 // using error middleware
 app.use(errorMiddleware);
 
+
+const swaggerOptions  = {
+    definition: {
+      openapi: '3.0.0',
+      swagger: '3.0.0',
+      info: {
+        title: 'MERN ECOMMERCE API Documentation',
+        version: '1.0.0',
+        description: 'Documentation for mern ecommerce API',
+      },
+      servers: [
+        {
+          url: 'http://localhost:3000', // Remplacez par l'URL de votre serveur
+        },
+      ],
+    },
+    apis: ['./routes/*.js'], // Remplacez par le chemin vers vos fichiers de routes
+};
+
+const swaggerSpec  = swaggerJSDoc(swaggerOptions);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec ));
 
 const server = app.listen(PORT, () => {
     console.log(`server started on ${PORT} in ${process.env.NODE_ENV} mode.`);
