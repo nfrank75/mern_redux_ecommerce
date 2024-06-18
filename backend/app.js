@@ -32,7 +32,8 @@ app.use(cookieParser());
 import productRoutes from "./routes/products.js";
 import  authRoutes  from './routes/auth.js';
 import orderRoutes from './routes/orders.js';
-import reviewRoutes from './routes/review.js'
+import reviewRoutes from './routes/review.js';
+
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 
@@ -53,6 +54,11 @@ const swaggerOptions  = {
         title: 'MERN ECOMMERCE API Documentation',
         version: '1.0.0',
         description: 'Documentation for mern ecommerce API',
+        contact: {
+          name: 'nfrank',
+          url: 'nfrank.com',
+          email: 'nfrank@gmail.com'
+        }
       },
       servers: [
         {
@@ -60,11 +66,11 @@ const swaggerOptions  = {
         },
       ],
     },
-    apis: ['./routes/*.js'], // Remplacez par le chemin vers vos fichiers de routes
+    apis: ['./controllers/*.js'], // Remplacez par le chemin vers vos fichiers de routes
 };
 
 const swaggerSpec  = swaggerJSDoc(swaggerOptions);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec ));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {explorer: true} ));
 
 const server = app.listen(PORT, () => {
     console.log(`server started on ${PORT} in ${process.env.NODE_ENV} mode.`);

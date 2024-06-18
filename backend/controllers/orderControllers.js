@@ -142,3 +142,208 @@ export const deleteOrder = catchAsyncErrors(async (req, res, next) => {
 
 });
 
+
+
+/**
+* @swagger
+* tags:
+* name: Orders
+* description: Gestion des commandes
+*
+* /api/v1/orders/new:
+* post:
+* summary: Créer une nouvelle commande
+* tags: [Orders]
+* requestBody:
+* required: true
+* content:
+* application/json:
+* schema:
+* $ref: '#/components/schemas/NewOrder'
+* responses:
+* '201':
+* description: Succès
+* content:
+* application/json:
+* schema:
+* $ref: '#/components/schemas/Order'
+*
+* /api/v1/me/orders:
+* get:
+* summary: Récupérer les commandes de l'utilisateur connecté
+* tags: [Orders]
+* responses:
+* '200':
+* description: Succès
+* content:
+* application/json:
+* schema:
+* type: object
+* properties:
+* length_orders:
+* type: integer
+* orders:
+* type: array
+* items:
+* $ref: '#/components/schemas/Order'
+*
+* /api/v1/orders/{id}:
+* get:
+* summary: Récupérer les détails d'une commande
+* tags: [Orders]
+* parameters:
+* - in: path
+* name: id
+* required: true
+* schema:
+* type: string
+* responses:
+* '200':
+* description: Succès
+* content:
+* application/json:
+* schema:
+* $ref: '#/components/schemas/Order'
+*
+* /api/v1/admin/orders:
+* get:
+* summary: Récupérer toutes les commandes (admin)
+* tags: [Orders]
+* responses:
+* '200':
+* description: Succès
+* content:
+* application/json:
+* schema:
+* type: object
+* properties:
+* length_order:
+* type: integer
+* order:
+* type: array
+* items:
+* $ref: '#/components/schemas/Order'
+*
+* /api/v1/admin/orders/{id}:
+* put:
+* summary: Mettre à jour une commande (admin)
+* tags: [Orders]
+* parameters:
+* - in: path
+* name: id
+* required: true
+* schema:
+* type: string
+* requestBody:
+* required: true
+* content:
+* application/json:
+* schema:
+* $ref: '#/components/schemas/UpdateOrder'
+* responses:
+* '200':
+* description: Succès
+* content:
+* application/json:
+* schema:
+* $ref: '#/components/schemas/SuccessMessage'
+*
+* /api/v1/admin/orders/{id}:
+* delete:
+* summary: Supprimer une commande (admin)
+* tags: [Orders]
+* parameters:
+* - in: path
+* name: id
+* required: true
+* schema:
+* type: string
+* responses:
+* '200':
+* description: Succès
+* content:
+* application/json:
+* schema:
+* $ref: '#/components/schemas/SuccessMessage'
+*
+* components:
+* schemas:
+* NewOrder:
+* type: object
+* properties:
+* orderItems:
+* type: array
+* items:
+* type: object
+* shippingInfo:
+* $ref: '#/components/schemas/ShippingInfo'
+* paymentMethod:
+* type: string
+* paymentInfo:
+* type: object
+* itemsPrice:
+* type: number
+* taxAmount:
+* type: number
+* shippingAmount:
+* type: number
+* totalAmount:
+* type: number
+* orderStatus:
+* type: string
+* Order:
+* type: object
+* properties:
+* id:
+* type: string
+* orderItems:
+* type: array
+* items:
+* type: object
+* shippingInfo:
+* $ref: '#/components/schemas/ShippingInfo'
+* paymentMethod:
+* type: string
+* paymentInfo:
+* type: object
+* itemsPrice:
+* type: number
+* taxAmount:
+* type: number
+* shippingAmount:
+* type: number
+* totalAmount:
+* type: number
+* orderStatus:
+* type: string
+* user:
+* $ref: '#/components/schemas/User'
+* ShippingInfo:
+* type: object
+* properties:
+* address:
+* type: string
+* city:
+* type: string
+* postalCode:
+* type: string
+* country:
+* type: string
+* User:
+* type: object
+* properties:
+* name:
+* type: string
+* email:
+* type: string
+* UpdateOrder:
+* type: object
+* properties:
+* status:
+* type: string
+* SuccessMessage:
+* type: object
+* properties:
+* success:
+* type: boolean
+*/

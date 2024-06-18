@@ -5,7 +5,6 @@ import sendToken from '../utils/sendToken.js';
 import sendEmail from '../utils/sendEmail.js';
 import {getResetPasswordTemplate} from '../utils/emailTemplates.js';
 import crypto from 'crypto';
-import { log } from 'console';
 
 // Register user => /api/v1/register  
 export const registerUser = catchAsyncErrors(async (req, res, next) => {

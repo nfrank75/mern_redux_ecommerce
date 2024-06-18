@@ -29,7 +29,7 @@ export const createProduct = catchAsyncErrors (async (req, res) => {
 
 
 // get all the products =>  /api/v1/products
-export const getProducts0 = catchAsyncErrors(async (req, res) => {
+export const getProducts = catchAsyncErrors(async (req, res) => {
     
     const resPerPage = 4;
     const apiFilters = new APIFilters(Product, req.query).search().filters();
@@ -53,7 +53,7 @@ export const getProducts0 = catchAsyncErrors(async (req, res) => {
 
 
 // search all the products
-export const getProducts = catchAsyncErrors(async (req, res) => {
+export const getProducts0 = catchAsyncErrors(async (req, res) => {
 
     const products = await Product.find();
 

@@ -42,7 +42,7 @@ userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     next();
   }
-
+$
   this.password = await bcrypt.hash(this.password, 10);
 });
 
@@ -58,7 +58,7 @@ userSchema.methods.getJwtToken = function () {
 // Compare user password
 userSchema.methods.comparePassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
-};
+}
 
 
 // Generate password reset token
