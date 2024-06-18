@@ -29,13 +29,15 @@ export const createProduct = catchAsyncErrors (async (req, res) => {
 
 
 // get all the products =>  /api/v1/products
-export const getProducts = catchAsyncErrors(async (req, res) => {
+export const getProducts = catchAsyncErrors(async (req, res, next) => {
     
     const resPerPage = 4;
     const apiFilters = new APIFilters(Product, req.query).search().filters();
 
     let products = await apiFilters.query; // filter product
     let filteredProductsCount = products.length;
+
+    // return next(new ErrorHandler('hello', 400)) // testing the toast action
 
     apiFilters.pagination(resPerPage);
     products = await apiFilters.query.clone()
@@ -48,30 +50,6 @@ export const getProducts = catchAsyncErrors(async (req, res) => {
         products
     });
 });
-
-
-
-
-// search all the products
-export const getProducts0 = catchAsyncErrors(async (req, res) => {
-
-    const products = await Product.find();
-
-    if(!products) {
-        return next(new ErrorHandler('products not found', 422));
-    }
-
-
-    res.status(200).json({
-        list_of_product: products,
-        message: 'Get all the product',
-        length_of_product: products.length,
-        status: 200
-    });
-});
-
-
-
 
 
 // Get single product details => /api/v1/products/:id
