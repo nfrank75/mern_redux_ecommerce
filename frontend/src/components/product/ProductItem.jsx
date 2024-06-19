@@ -19,7 +19,7 @@ export const ProductItem = ({ product }) => {
                   </h5>
                     <div className="ratings mt-auto d-flex">
                     <StarRatings
-                      rating={product?.rating}
+                      rating={product?.ratings}
                       starRatedColor="#ffb829"
                       numberOfStars={5}
                       name='rating'
@@ -43,8 +43,8 @@ export const ProductItem = ({ product }) => {
                 </div>
               </div>
     
-  )
-}
+  );
+};
 
 
 export default ProductItem;
