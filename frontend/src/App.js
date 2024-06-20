@@ -9,6 +9,8 @@ import Header from "./components/layout/Header";
 import { Toaster } from "react-hot-toast";
 import ProductDetails from "./components/product/ProductDetails";
 
+import Login from "./components/auth/Login";
+
 function App() {
   return (
     <Router>
@@ -20,6 +22,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/product/:id" element={<ProductDetails />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </div>
 
