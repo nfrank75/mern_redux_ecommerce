@@ -27,7 +27,6 @@ const ProductDetails = () => {
     if (isError) {
       toast.error(error?.data?.message);
     }
-    
   }, [isError, error?.data?.message]);
 
   if (isLoading) return <Loader />;
@@ -45,11 +44,9 @@ const ProductDetails = () => {
           />
         </div>
         <div className="row justify-content-start mt-5">
-          
-          {data?.productId?.images?.map((img) => (
-            
+          {data?.productId.images?.map((img) => (
             <div className="col-2 ms-4 mt-2">
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
               <a role="button">
                 <img
                   className={`d-block border rounded p-3 cursor-pointer ${
@@ -128,6 +125,9 @@ const ProductDetails = () => {
         <hr />
         <p id="product_seller mb-3">
           Sold by: <strong>{data?.productId?.seller}</strong>
+        </p>
+        <p id="product_category mb-3">
+          Category: <strong>{data?.productId?.category}</strong>
         </p>
 
         <div className="alert alert-danger my-5" type="alert">
