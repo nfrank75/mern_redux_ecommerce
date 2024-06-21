@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useLoginMutation } from '../../redux/api/authApi';
 
 import { toast } from "react-hot-toast";
@@ -9,11 +9,8 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [login, {isLoading, error, data}] = useLoginMutation();
+  const [login, {isLoading, error}] = useLoginMutation();
 
-  console.log("---*----0000---------");
-  console.log("---*----data---------", data);
-  console.log("---*----0000---------");
 
   useEffect(() => {
     if(error) {
