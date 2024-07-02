@@ -1,15 +1,7 @@
 import express from 'express';
 import { isAuthenticatedUser } from '../middlewares/auth.js';
-import { authorizeRoles, deleteUser, updateUser } from '../controllers/authControllers.js';
-import { registerUser, loginUser, logoutUser, forgotPassword, resetPassword,
-    getUserProfile,
-    updatePassword,
-    updateUserProfile,
-    getAllUsers,
-    getUserDetails,  } from '../controllers/authControllers.js';
-
-
-
+import { authorizeRoles, deleteUser, updateUser, registerUser, loginUser, logoutUser, forgotPassword, resetPassword,
+    getUserProfile, updatePassword, updateUserProfile, getAllUsers, getUserDetails,  } from '../controllers/authControllers.js';
 
 const router = express.Router();
 

@@ -21,11 +21,11 @@ dotenv.config({ path : "backend/config/config.env"});
 const PORT = process.env.PORT;
 const DEV = process.env.DEV
 
-//connect database
+//connect database  
 connectDatabase();
 
-app.use(express.json());
-app.use(cookieParser());
+app.use(express.json({ limit: '100mb', extended: true }));
+app.use(cookieParser({ limit: '100mb', extended: true }));
 
 
 // import all the routes 

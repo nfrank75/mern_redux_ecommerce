@@ -6,6 +6,7 @@ import sendEmail from '../utils/sendEmail.js';
 import {getResetPasswordTemplate} from '../utils/emailTemplates.js';
 import crypto from 'crypto';
 
+
 // Register user => /api/v1/register  
 export const registerUser = catchAsyncErrors(async (req, res, next) => {
     try{
@@ -33,7 +34,6 @@ export const registerUser = catchAsyncErrors(async (req, res, next) => {
     }
     
 });
-
 
 // Login user => /api/v1/login 
 export const loginUser = catchAsyncErrors(async (req, res, next) => {
@@ -75,7 +75,6 @@ export const loginUser = catchAsyncErrors(async (req, res, next) => {
     }
     
 });
-
 
 // Logout user => /api/v1/logout 
 export const logoutUser = catchAsyncErrors(async (req, res, next) => {

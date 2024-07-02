@@ -61,7 +61,7 @@ userSchema.methods.comparePassword = async function (enteredPassword) {
 }
 
 
-// Generate password reset token
+// Generate password eset token
 userSchema.methods.getResetPasswordToken = function () {
 
   // Generate token

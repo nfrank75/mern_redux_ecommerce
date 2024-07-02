@@ -11,7 +11,6 @@ const Filters = () => {
   const navigate = useNavigate();
   let [searchParams] = useSearchParams();
 
-  // eslint-disable-next-line
   useEffect(() => {
     searchParams.has("min") && setMin(searchParams.get("min"));
     searchParams.has("max") && setMax(searchParams.get("max"));
