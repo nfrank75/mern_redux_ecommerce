@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <footer className="py-1 pt-5">
       <p className="text-center mt-1 fw-bold">
-        nf-ShopIT - 2023-2024, All Rights Reserved
+        Link Shop - 2024, @Nfr All Rights Reserved
       </p>
     </footer>
   );

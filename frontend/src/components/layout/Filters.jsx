@@ -73,7 +73,7 @@ const Filters = () => {
             <input
               type="text"
               className="form-control"
-              placeholder="Min ($)"
+              placeholder="Min (Fcfa)"
               name="min"
               value={min}
               onChange={(e) => setMin(e.target.value)}
@@ -83,7 +83,7 @@ const Filters = () => {
             <input
               type="text"
               className="form-control"
-              placeholder="Max ($)"
+              placeholder="Max (Fcfa)"
               name="max"
               value={max}
               onChange={(e) => setMax(e.target.value)}

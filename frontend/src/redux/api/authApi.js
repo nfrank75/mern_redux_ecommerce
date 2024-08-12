@@ -45,4 +45,5 @@ export const authApi = createApi({
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation, useLazyLogoutQuery } = authApi;
+export const { useLoginMutation, useRegisterMutation, useLazyLogoutQuery } =
+  authApi;

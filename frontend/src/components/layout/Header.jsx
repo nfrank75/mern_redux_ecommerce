@@ -30,15 +30,8 @@ const Header = () => {
       <div className="col-12 col-md-6 mt-2 mt-md-0">
         <Search />
       </div>
-
       <div className="col-12 col-md-3 mt-4 mt-md-0 text-center">
-        
-        <a href="/" style={{ textDecoration: "none" }}>
-          <span id="cart" className="ms-3">
-            Home
-          </span>
-
-        </a><a href="/cart" style={{ textDecoration: "none" }}>
+        <a href="/cart" style={{ textDecoration: "none" }}>
           <span id="cart" className="ms-3">
             {" "}
             Cart{" "}
@@ -62,7 +55,7 @@ const Header = () => {
                   src={
                     user?.avatar
                       ? user?.avatar?.url
-                      : "/images/nf-shop-ecom.png"
+                      : "/images/default_avatar.jpg"
                   }
                   alt="User Avatar"
                   className="rounded-circle"

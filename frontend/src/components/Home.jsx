@@ -30,7 +30,7 @@ const Home = () => {
     if (isError) {
       toast.error(error?.data?.message);
     }
-  }, [isError]);
+  }, [isError, error?.data?.message]);
 
   const columnSize = keyword ? 4 : 3;
 
