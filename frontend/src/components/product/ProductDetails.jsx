@@ -29,12 +29,6 @@ const ProductDetails = () => {
 
   console.log("==================data?=========",data);
 
-  
-  // console.log("==================data___product_id?=========",data.product._id);
-
-  
-  // console.log("==================data___product__image?=========",data.product._id.images);
-
   useEffect(() => {
     if (isError) {
       toast.error(error?.data?.message);
