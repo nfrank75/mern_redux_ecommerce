@@ -15,13 +15,25 @@ const ProductDetails = () => {
 
   const [activeImg, setActiveImg] = useState("");
 
+  
+
   useEffect(() => {
     setActiveImg(
-      data?.productId?.images[0]
-        ? data?.productId?.images[0]?.url
+      data?.product?.images[0]
+        ? data?.product?.images[0]?.url
         : "/images/default_product.png"
     );
-  }, [data?.productId]);
+  }, [data?.product_id, data?.product?.images]);
+
+  
+
+  console.log("==================data?=========",data);
+
+  
+  // console.log("==================data___product_id?=========",data.product._id);
+
+  
+  // console.log("==================data___product__image?=========",data.product._id.images);
 
   useEffect(() => {
     if (isError) {
@@ -44,7 +56,7 @@ const ProductDetails = () => {
           />
         </div>
         <div className="row justify-content-start mt-5">
-          {data?.productId.images?.map((img) => (
+          {data?.product.images?.map((img) => (
             <div className="col-2 ms-4 mt-2">
               {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
               <a role="button">
@@ -66,7 +78,7 @@ const ProductDetails = () => {
 
       <div className="col-12 col-lg-5 mt-5">
         <h3>{data?.productId?.name}</h3>
-        <p id="product_id">Product # {data?.productId?._id}</p>
+        <p id="product_id">Product # {data?.product._id}</p>
 
         <hr />
 
@@ -86,7 +98,7 @@ const ProductDetails = () => {
         </div>
         <hr />
 
-        <p id="product_price">${data?.productId?.price}</p>
+        <p id="product_price">${data?.product?.price}</p>
         <div className="stockCounter d-inline">
           <span className="btn btn-danger minus">-</span>
           <input
@@ -112,22 +124,22 @@ const ProductDetails = () => {
           Status:{" "}
           <span
             id="stock_status"
-            className={data?.productId?.stock > 0 ? "greenColor" : "redColor"}
+            className={data?.product?.stock > 0 ? "greenColor" : "redColor"}
           >
-            {data?.productId?.stock > 0 ? "In Stock" : "Out of Stock"}
+            {data?.product?.stock > 0 ? "In Stock" : "Out of Stock"}
           </span>
         </p>
 
         <hr />
 
         <h4 className="mt-2">Description:</h4>
-        <p>{data?.productId?.description}</p>
+        <p>{data?.product?.description}</p>
         <hr />
         <p id="product_seller mb-3">
-          Sold by: <strong>{data?.productId?.seller}</strong>
+          Sold by: <strong>{data?.product?.seller}</strong>
         </p>
         <p id="product_category mb-3">
-          Category: <strong>{data?.productId?.category}</strong>
+          Category: <strong>{data?.product?.category}</strong>
         </p>
 
         <div className="alert alert-danger my-5" type="alert">
