@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { saveShippingInfo } from "../../redux/features/cartSlice";
 import { useNavigate } from "react-router-dom";
 import MetaData from "../layout/MetaData";
-import CheckoutSteps from "./CheckoutSteps";
+import CheckoutSteps from "./CheckoutSteps.jsx";
 
 const Shipping = () => {
   const countriesList = Object.values(countries);
