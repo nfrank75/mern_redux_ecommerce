@@ -18,23 +18,15 @@ const ProductDetails = () => {
   const { data, isLoading, error, isError } = useGetProductDetailsQuery(
     params?.id
   );
-  // const product = data?.product;
-
-  const [activeImg, setActiveImg] = useState("");
-
-  
+  const product = data?.product;
 
   useEffect(() => {
     setActiveImg(
-      data?.product?.images[0]
-        ? data?.product?.images[0]?.url
+      product?.images[0]
+        ? product?.images[0]?.url
         : "/images/default_product.png"
     );
-  }, [data?.product_id, data?.product?.images]);
-
-  
-
-  console.log("==================data?=========",data);
+  }, [product]);
 
   useEffect(() => {
     if (isError) {
@@ -77,47 +69,49 @@ const ProductDetails = () => {
   if (isLoading) return <Loader />;
 
   return (
-    <div className="row d-flex justify-content-around">
-      <div className="col-12 col-lg-5 img-fluid" id="product_image">
-        <div className="p-3">
-          <img
-            className="d-block w-100"
-            src={activeImg}
-            alt={data?.productId?.name}
-            width="340"
-            height="390"
-          />
+    <>
+      <MetaData title={product?.name} />
+      <div className="row d-flex justify-content-around">
+        <div className="col-12 col-lg-5 img-fluid" id="product_image">
+          <div className="p-3">
+            <img
+              className="d-block w-100"
+              src={activeImg}
+              alt={product?.name}
+              width="340"
+              height="390"
+            />
+          </div>
+          <div className="row justify-content-start mt-5">
+            {product?.images?.map((img) => (
+              <div className="col-2 ms-4 mt-2">
+                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                <a role="button">
+                  <img
+                    className={`d-block border rounded p-3 cursor-pointer ${
+                      img.url === activeImg ? "border-warning" : ""
+                    } `}
+                    height="100"
+                    width="100"
+                    src={img?.url}
+                    alt={img?.url}
+                    onClick={(e) => setActiveImg(img.url)}
+                  />
+                </a>
+              </div>
+            ))}
+          </div>
         </div>
-        <div className="row justify-content-start mt-5">
-          {data?.product.images?.map((img) => (
-            <div className="col-2 ms-4 mt-2">
-              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-              <a role="button">
-                <img
-                  className={`d-block border rounded p-3 cursor-pointer ${
-                    img.url === activeImg ? "border-warning" : ""
-                  } `}
-                  height="100"
-                  width="100"
-                  src={img?.url}
-                  alt={img?.url}
-                  onClick={(e) => setActiveImg(img.url)}
-                />
-              </a>
-            </div>
-          ))}
-        </div>
-      </div>
 
-      <div className="col-12 col-lg-5 mt-5">
-        <h3>{data?.productId?.name}</h3>
-        <p id="product_id">Product # {data?.product._id}</p>
+        <div className="col-12 col-lg-5 mt-5">
+          <h3>{product?.name}</h3>
+          <p id="product_id">Product # {product?._id}</p>
 
           <hr />
 
           <div className="d-flex">
             <StarRatings
-            rating={data?.productId?.ratings}
+              rating={product?.ratings}
               starRatedColor="#ffb829"
               numberOfStars={5}
               name="rating"
@@ -126,12 +120,12 @@ const ProductDetails = () => {
             />
             <span id="no-of-reviews" className="pt-1 ps-2">
               {" "}
-            ({data?.productId?.numOfReviews} Reviews){" "}
+              ({product?.numOfReviews} Reviews){" "}
             </span>
           </div>
           <hr />
 
-        <p id="product_price">${data?.product?.price}</p>
+          <p id="product_price">${product?.price}</p>
           <div className="stockCounter d-inline">
             <span className="btn btn-danger minus" onClick={decreseQty}>
               -
@@ -158,33 +152,31 @@ const ProductDetails = () => {
 
           <hr />
 
-        <p>
-          Status:{" "}
-          <span
-            id="stock_status"
-            className={data?.product?.stock > 0 ? "greenColor" : "redColor"}
-          >
-            {data?.product?.stock > 0 ? "In Stock" : "Out of Stock"}
-          </span>
-        </p>
+          <p>
+            Status:{" "}
+            <span
+              id="stock_status"
+              className={product?.stock > 0 ? "greenColor" : "redColor"}
+            >
+              {product?.stock > 0 ? "In Stock" : "Out of Stock"}
+            </span>
+          </p>
 
           <hr />
 
           <h4 className="mt-2">Description:</h4>
-        <p>{data?.product?.description}</p>
+          <p>{product?.description}</p>
           <hr />
           <p id="product_seller mb-3">
-          Sold by: <strong>{data?.product?.seller}</strong>
-        </p>
-        <p id="product_category mb-3">
-          Category: <strong>{data?.product?.category}</strong>
-        </p>
+            Sold by: <strong>{product?.seller}</strong>
+          </p>
 
           <div className="alert alert-danger my-5" type="alert">
             Login to post your review.
           </div>
         </div>
       </div>
+    </>
   );
 };
 
